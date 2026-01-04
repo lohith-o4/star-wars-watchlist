@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars: The Release Order</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: transparent; 
+            color: #e0e0e0;
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        /* Starfield Canvas */
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; 
+            background: #000;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            position: relative;
+        }
+
+        /* --- LOGO STYLE TITLE --- */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 5em;
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin: 0;
+            color: transparent; 
+            -webkit-text-stroke: 1px #ffe81f; 
+            text-stroke: 1px #ffe81f;
+            filter: drop-shadow(0 0 8px rgba(255, 232, 31, 0.3));
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #ffe81f;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 10px;
+            text-shadow: 0 0 10px rgba(255, 232, 31, 0.5);
+        }
+
+        h3 {
+            font-size: 1.2em;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        p { 
+            margin-bottom: 15px; 
+            color: #ccc; 
+            font-weight: 400;
+        }
+
+        /* Text Highlights */
+        .text-blue { color: #4facfe; font-weight: 700; text-shadow: 0 0 10px rgba(79, 172, 254, 0.4); }
+        .text-red { color: #ff5858; font-weight: 700; text-shadow: 0 0 10px rgba(255, 88, 88, 0.4); }
+        .text-gold { color: #ffe81f; font-weight: 700; text-shadow: 0 0 10px rgba(255, 232, 31, 0.4); }
+        .text-green { color: #2ecc71; font-weight: 700; text-shadow: 0 0 10px rgba(46, 204, 113, 0.4); }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-right: 8px;
+            vertical-align: middle;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .badge-movie { background: rgba(255, 232, 31, 0.1); color: #ffe81f; border: 1px solid rgba(255, 232, 31, 0.3); }
+        .badge-live { background: rgba(0, 217, 255, 0.1); color: #00d9ff; border: 1px solid rgba(0, 217, 255, 0.3); }
+        .badge-anim { background: rgba(255, 149, 0, 0.1); color: #ff9500; border: 1px solid rgba(255, 149, 0, 0.3); }
+        .badge-game { background: rgba(46, 204, 113, 0.1); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.3); }
+
+        /* Glass Panel */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(4px); 
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: transparent !important;
+        }
+
+        th {
+            text-align: left;
+            padding: 18px 20px;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.02); 
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #ccc;
+            font-weight: 400;
+            background: transparent !important;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        
+        tr:hover td { 
+            background: rgba(255, 232, 31, 0.05) !important;
+            transition: background 0.2s ease;
+        }
+
+        /* Legend */
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.95em;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #888;
+            font-size: 1em;
+            padding-bottom: 40px;
+        }
+
+        .footer-quote {
+            font-size: 1.8em;
+            color: #00d9ff;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            color: transparent;
+            -webkit-text-stroke: 1px #00d9ff;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 3.5em; }
+            th, td { padding: 12px; font-size: 0.9em; }
+            .badge { display: block; width: fit-content; margin-bottom: 5px; }
+            .legend-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+
+    <div class="container">
+        
+        <div class="logo-container">
+            <h1>Star<br>Wars</h1>
+            <div class="subtitle">The Release Order</div>
+        </div>
+
+        <p style="font-size: 1.2em; color: #aaa; text-align: center; margin-bottom: 10px;">
+            The complete 1977–2025 saga experience.<br>Curated to minimize filler while preserving narrative integrity.
+        </p>
+        
+        <p style="font-size: 1em; color: #ffe81f; text-align: center; margin-bottom: 50px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.9;">
+            Curated by Lohith
+        </p>
+
+        <div class="glass-panel">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="15%">Year / ID</th>
+                        <th width="40%">Title / Episodes</th>
+                        <th>Significance / Focus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-movie">1977</span></td>
+                        <td>A New Hope (Ep IV)</td>
+                        <td>The introduction to <span class="text-blue">The Force</span> and the Jedi.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-movie">1980</span></td>
+                        <td>The Empire Strikes Back (Ep V)</td>
+                        <td>Introduces Yoda and the greatest <span class="text-gold">plot twist</span> in cinema.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-movie">1983</span></td>
+                        <td>Return of the Jedi (Ep VI)</td>
+                        <td>The redemption of Anakin Skywalker.</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="badge badge-movie">1999</span></td>
+                        <td>The Phantom Menace (Ep I)</td>
+                        <td>Origins of Anakin & Obi-Wan. Duel of the Fates.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-movie">2002</span></td>
+                        <td>Attack of the Clones (Ep II)</td>
+                        <td>Begins the Clone Wars.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-movie">2005</span></td>
+                        <td>Revenge of the Sith (Ep III)</td>
+                        <td><span class="text-red">The rise of the Empire.</span> Order 66.</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="badge badge-movie">2008</span></td>
+                        <td>The Clone Wars (Movie)</td>
+                        <td>Ahsoka's introduction (Critical context).</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-anim">S1</span></td>
+                        <td>TCW Eps 1–5, 8–12, 15, 19–22</td>
+                        <td>Domino Squad, Nute Gunray, Dooku, Ryloth.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-anim">S2</span></td>
+                        <td>TCW Eps 1–3, 5–8, 11–14, 20–22</td>
+                        <td>Holocron Heist, Geonosis, Mandalore, Boba Fett.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-anim">S3</span></td>
+                        <td>TCW Eps 1, 5–6, 10–22</td>
+                        <td><span class="text-blue">Politics</span>, Nightsisters, Mortis, Citadel.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-anim">S4</span></td>
+                        <td>TCW Eps 7–14, 15–18, 19–22</td>
+                        <td>Umbara, Slavers, Obi-Wan Undercover, Maul's Return.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-anim">S5</span></td>
+                        <td>TCW Eps 2–5, 6–9, 1, 14–20</td>
+                        <td>Onderon Rebellion (Saw Gerrera), Maul takes Mandalore.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-anim">S6</span></td>
+                        <td>TCW Eps 1–4, 5–7, 10–13</td>
+                        <td>Fives/Inhibitor Chips, <span class="text-blue">Banking Clan</span>, Yoda.</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="badge badge-anim">2014</span></td>
+                        <td>Star Wars Rebels (All Seasons)</td>
+                        <td><span class="text-blue">Watch All.</span> Crucial lore. Introduces <span class="text-red">Thrawn</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-movie">2016</span></td>
+                        <td>Rogue One</td>
+                        <td>Direct prequel to A New Hope. Widely considered the best modern movie.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-movie">2018</span></td>
+                        <td>Solo</td>
+                        <td>Han Solo origin story. Fun adventure, low stakes.</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="badge badge-game">2019</span></td>
+                        <td>Jedi: Fallen Order</td>
+                        <td><span class="text-green">Canon Video Game.</span> Intro of Cal Kestis & Inquisitors.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-live">2019</span></td>
+                        <td>The Mandalorian (S1 & S2)</td>
+                        <td>Introduces <span class="text-gold">Grogu</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-anim">2020</span></td>
+                        <td>Clone Wars (Season 7)</td>
+                        <td><strong>The Siege of Mandalore</strong> (Last 4 eps) is a masterpiece.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-anim">2021</span></td>
+                        <td>The Bad Batch (S1)</td>
+                        <td>Immediate aftermath of Order 66.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-live">2021</span></td>
+                        <td>Book of Boba Fett</td>
+                        <td><span class="text-red">Only Eps 5, 6, 7</span> (Required for Mando S3).</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-live">2022</span></td>
+                        <td>Obi-Wan Kenobi</td>
+                        <td>Vader vs Obi-Wan rematch.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-live">2022</span></td>
+                        <td>Andor (Season 1)</td>
+                        <td><span class="text-gold">Masterpiece.</span> Gritty Rebellion origin.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-anim">2022</span></td>
+                        <td>Tales of the Jedi</td>
+                        <td>Backstory for Dooku and Ahsoka.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-live">2023</span></td>
+                        <td>The Mandalorian (S3)</td>
+                        <td>The retaking of Mandalore.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-game">2023</span></td>
+                        <td>Jedi: Survivor</td>
+                        <td><span class="text-green">Canon Video Game.</span> Sequel to Fallen Order.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-live">2023</span></td>
+                        <td>Ahsoka (Season 1)</td>
+                        <td>Sequel to <em>Rebels</em>. Introduction of Baylan Skoll.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-anim">2024</span></td>
+                        <td>The Bad Batch (S2 & S3)</td>
+                        <td>Conclusion of the Clone storyline.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-anim">2024</span></td>
+                        <td>Tales of the Empire</td>
+                        <td>Morgan Elsbeth & Barriss Offee origins.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-live">2024</span></td>
+                        <td>Skeleton Crew</td>
+                        <td>Jude Law. Amblin-style adventure in the New Republic era.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-live">2025</span></td>
+                        <td>Andor (Season 2)</td>
+                        <td><span class="text-gold">The Final Link.</span> Leads directly into Rogue One.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="glass-panel" style="text-align: center;">
+            <h3 style="padding-top: 15px;">Media Guide</h3>
+            <div class="legend-grid">
+                <div class="legend-item"><div class="legend-dot" style="background: #ffe81f; color: #ffe81f;"></div><span class="text-gold">Feature Films</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background: #00d9ff; color: #00d9ff;"></div><span class="text-blue">Live Action Series</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background: #ff9500; color: #ff9500;"></div><span style="color: #ff9500; font-weight: 700;">Animated Series</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background: #2ecc71; color: #2ecc71;"></div><span class="text-green">Canon Video Games</span></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-quote">May the Force be with you</div>
+            <p><strong>Exclusions:</strong> Episodes 7, 8, 9 and <em>The Acolyte</em> have been omitted from this list as they are literal shit.</p>
+            <p style="margin-top: 15px; font-size: 0.8em; color: #888; opacity: 0.7; font-style: italic;">
+                (List will be updated at the end of every year)
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const numStars = 900;
+        let stars = [];
+
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.8,
+                    opacity: Math.random() * 0.5 + 0.5,
+                    twinkleSpeed: Math.random() * 0.015 + 0.005
+                });
+            }
+        }
+
+        function drawStars(time) {
+            ctx.fillStyle = '#000'; // Pure Black
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            stars.forEach((star, index) => {
+                const flicker = 0.4 + Math.abs(Math.sin(time * star.twinkleSpeed + index)) * 0.6;
+                const finalOpacity = star.opacity * flicker;
+
+                ctx.fillStyle = `rgba(255, 255, 255, ${finalOpacity})`;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        let startTime = Date.now();
+        function animate() {
+            const time = Date.now() - startTime;
+            drawStars(time);
+            requestAnimationFrame(animate);
+        }
+
+        initStars();
+        animate();
+    </script>
+</body>
+</html>
