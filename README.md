@@ -6,6 +6,6 @@ A minimalist, single-page web experience visualizing the essential Star Wars sag
 This timeline is opinionated. It strictly follows the Lucasfilm/Filoni narrative thread
 **Excluded:** Episodes VII, VIII, IX, *The Acolyte*, and narrative fillers
 
-*(This List will be updated at the end of every year)*
+*(This List will be updated every 3 months)*
 
 *Maintained and curated by Lohith*
