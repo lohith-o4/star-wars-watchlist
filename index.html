@@ -136,10 +136,9 @@
 
         .strong {
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.95);
         }
 
-        .text-blue.em, .text-red.em, .text-gold.em, .text-green.em {
+        .text-blue.em, .text-red.em, .text-gold.em, .text-green.em, .text-purple.em, .text-cyan.em {
             font-style: italic;
         }
 
@@ -178,15 +177,15 @@
 
         .glass-panel {
             background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 24px;
             overflow: hidden;
             margin-bottom: 40px;
             box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                0 4px 24px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
         }
 
         .table-wrapper {
@@ -200,25 +199,42 @@
             min-width: 600px;
         }
 
+        thead tr {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
         th {
-            text-align: left;
-            padding: 24px 30px;
+            text-align: center;
+            padding: 20px 24px;
             color: rgba(255, 255, 255, 0.85);
-            background: rgba(255, 255, 255, 0.015);
             font-weight: 600;
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 3px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             white-space: nowrap;
         }
 
+        tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: background 0.3s ease;
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
         td {
-            padding: 20px 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 16px 24px;
             color: rgba(255, 255, 255, 0.7);
             font-weight: 400;
             font-size: 0.95rem;
+            text-align: center;
+            vertical-align: middle;
         }
 
         td:nth-child(2) {
@@ -226,11 +242,22 @@
             font-weight: 500;
         }
 
-        tr:last-child td { border-bottom: none; }
-        
-        tr:hover td { 
-            background: rgba(255, 255, 255, 0.025);
-            transition: background 0.4s ease;
+        .clickable-link {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .clickable-link:hover {
+            color: #7eb8ff;
+        }
+
+        .clickable-link .em {
+            transition: all 0.3s ease;
+        }
+
+        .clickable-link:hover .em {
+            color: #7eb8ff;
         }
 
         .legend-grid {
@@ -409,7 +436,7 @@
             .logo-title span { font-size: 5.5rem; letter-spacing: 15px; }
             .subtitle { font-size: 0.85rem; letter-spacing: 10px; }
             .footer-quote { font-size: 2.6rem; letter-spacing: 8px; }
-            th, td { padding: 18px 24px; }
+            th, td { padding: 14px 20px; }
             .legend-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 35px; }
             .scroll-top { right: 30px; bottom: 30px; width: 52px; height: 52px; }
         }
@@ -426,8 +453,8 @@
             .intro-text .curator { font-size: 0.65rem; letter-spacing: 3px; padding: 10px 20px; margin-top: 25px; }
             .glass-panel { border-radius: 18px; margin-bottom: 30px; }
             table { min-width: 500px; }
-            th { padding: 16px 18px; font-size: 0.65rem; letter-spacing: 2px; }
-            td { padding: 14px 18px; font-size: 0.88rem; }
+            th { padding: 14px 16px; font-size: 0.65rem; letter-spacing: 2px; }
+            td { padding: 12px 16px; font-size: 0.88rem; }
             .badge { padding: 5px 10px; font-size: 0.65rem; min-width: 50px; }
             .legend-grid { grid-template-columns: 1fr 1fr; gap: 15px; padding: 25px 20px; }
             .legend-item { font-size: 0.75rem; justify-content: flex-start; }
@@ -447,8 +474,8 @@
             .subtitle { font-size: 0.6rem; letter-spacing: 4px; }
             .intro-text p { font-size: 0.95rem; }
             table { min-width: 450px; }
-            th { padding: 14px 14px; }
-            td { padding: 12px 14px; font-size: 0.85rem; }
+            th { padding: 12px 12px; }
+            td { padding: 10px 12px; font-size: 0.85rem; }
             .legend-grid { grid-template-columns: 1fr; gap: 12px; }
             .legend-item { justify-content: center; }
             .footer-quote { font-size: 1.3rem; letter-spacing: 4px; }
@@ -459,13 +486,13 @@
             .logo-title span { font-size: 8rem; letter-spacing: 25px; }
             .subtitle { font-size: 1rem; letter-spacing: 15px; }
             .intro-text p { font-size: 1.15rem; }
-            th, td { padding: 24px 35px; }
+            th, td { padding: 20px 28px; }
             td { font-size: 1rem; }
             .footer-quote { font-size: 3.8rem; letter-spacing: 12px; }
         }
 
         @media (hover: none) and (pointer: coarse) {
-            tr:hover td { background: transparent; }
+            tbody tr:hover { background: transparent; }
             .scroll-top:hover { transform: none; }
             .scroll-top:active { background: rgba(255, 255, 255, 0.1); transform: scale(0.95); }
         }
@@ -504,29 +531,29 @@
                         <tr>
                             <th width="15%">Year</th>
                             <th width="40%">Title</th>
-                            <th>Significance</th>
+                            <th width="45%">Significance</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><span class="badge badge-movie">1977</span></td>
                             <td>A New Hope <span class="em">(Episode IV)</span></td>
-                            <td>The introduction to <span class="text-blue">The Force</span> and the <span class="text-cyan">Jedi Order</span></td>
+                            <td>Introduction to <span class="text-blue">The Force</span> and the <span class="text-cyan">Jedi Order</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-movie">1980</span></td>
                             <td>The Empire Strikes Back <span class="em">(Episode V)</span></td>
-                            <td>Introduces <span class="text-green">Yoda</span> and cinema's greatest <span class="text-gold">plot twist</span></td>
+                            <td>Introduces <span class="text-green">Yoda</span> and one of the cinema's greatest <span class="text-gold">plot twist</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-movie">1983</span></td>
                             <td>Return of the Jedi <span class="em">(Episode VI)</span></td>
-                            <td>The <span class="text-gold em">redemption</span> of <span class="text-red">Anakin Skywalker</span></td>
+                            <td><span class="text-gold em">Redemption</span> of <span class="text-red">Anakin Skywalker</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-movie">1999</span></td>
                             <td>The Phantom Menace <span class="em">(Episode I)</span></td>
-                            <td>Origins of <span class="text-blue">Anakin</span> & <span class="text-cyan">Obi-Wan Kenobi</span></td>
+                            <td>Origins of <span class="text-blue">Anakin</span> and <span class="text-cyan">Obi-Wan Kenobi</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-movie">2002</span></td>
@@ -536,57 +563,32 @@
                         <tr>
                             <td><span class="badge badge-movie">2005</span></td>
                             <td>Revenge of the Sith <span class="em">(Episode III)</span></td>
-                            <td><span class="text-red">Rise of the Empire</span> • <span class="text-red strong">Order 66</span> • <span class="text-gold">Birth of Vader</span></td>
+                            <td><span class="text-red strong">Order 66</span> • <span class="text-red">Rise of the Empire</span> • <span class="text-gold">Birth of Vader</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-movie">2008</span></td>
                             <td>The Clone Wars <span class="em">(Movie)</span></td>
-                            <td>Introduction of <span class="text-gold">Ahsoka Tano</span> - <span class="em">Anakin's apprentice</span></td>
+                            <td>Introduces <span class="text-gold">Ahsoka Tano</span>, <span class="em">Anakin's apprentice</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-anim">2008</span></td>
-                            <td>Clone Wars <span class="em">(S1)</span> - Eps 2–5</td>
-                            <td><span class="text-white">Malevolence Arc</span> • <span class="text-blue">Domino Squad</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-anim">2009</span></td>
-                            <td>Clone Wars <span class="em">(S2)</span> - Eps 5–8, 10, 12–14, 20–22</td>
-                            <td><span class="text-gold">Geonosis</span> • <span class="text-purple">Mandalore Plot</span> • <span class="text-green">Boba Fett</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-anim">2010</span></td>
-                            <td>Clone Wars <span class="em">(S3)</span> - Eps 1–2, 12–14, 15–20</td>
-                            <td><span class="text-red">Nightsisters</span> • <span class="text-cyan strong">Mortis Arc</span> • <span class="text-gold">Citadel</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-anim">2011</span></td>
-                            <td>Clone Wars <span class="em">(S4)</span> - Eps 7–10, 19–22</td>
-                            <td><span class="text-blue strong">Umbara</span> • <span class="text-red strong">Maul Returns</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-anim">2012</span></td>
-                            <td>Clone Wars <span class="em">(S5)</span> - Eps 1-9, 14-20</td>
-                            <td><span class="text-green">Onderon</span> • <span class="text-red">Maul takes Mandalore</span> • <span class="text-gold em">Ahsoka leaves</span></td>
+                            <td>The Clone Wars <span class="em">(S1–S7)</span></td>
+                            <td><a href="clonewars.html" class="clickable-link"><span class="em">Click here for curated episode list →</span></a></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-anim">2014</span></td>
-                            <td>Clone Wars <span class="em">(S6)</span> - Eps 1-4, 10-13</td>
-                            <td><span class="text-blue">Fives</span> discovers <span class="text-red">Inhibitor Chips</span> • <span class="text-green">Yoda's Journey</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-anim">2014</span></td>
-                            <td>Star Wars Rebels <span class="em">(All Seasons)</span></td>
-                            <td><span class="text-white strong">Essential lore</span> • Introduces <span class="text-blue strong">Grand Admiral Thrawn</span></td>
+                            <td>Star Wars Rebels <span class="em">(S1–S4)</span></td>
+                            <td><a href="rebels.html" class="clickable-link"><span class="em">Click here for curated episode list →</span></a></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-movie">2016</span></td>
                             <td>Rogue One: A Star Wars Story</td>
-                            <td>Direct prequel to <span class="em">A New Hope</span> - <span class="text-gold strong">Best modern Star Wars Movie</span></td>
+                            <td>Direct prequel to <span class="em">A New Hope</span> • <span class="text-gold strong">Best modern Star Wars film</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-movie">2018</span></td>
                             <td>Solo: A Star Wars Story</td>
-                            <td><span class="text-gold">Han Solo</span> origin • Introduces <span class="text-cyan">Qi'ra</span> & <span class="text-red">Crimson Dawn</span></td>
+                            <td><span class="text-gold">Han Solo</span> origin • Introduces <span class="text-cyan">Qi'ra</span> and <span class="text-red">Crimson Dawn</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-game">2019</span></td>
@@ -595,23 +597,18 @@
                         </tr>
                         <tr>
                             <td><span class="badge badge-live">2019</span></td>
-                            <td>The Mandalorian <span class="em">(S1 & S2)</span></td>
-                            <td><span class="text-purple strong">Din Djarin</span> & the introduction of <span class="text-green">Grogu</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge badge-anim">2020</span></td>
-                            <td>Clone Wars <span class="em">(S7)</span> - Eps 1-4, 9-12</td>
-                            <td><span class="text-white">Bad Batch Intro</span> • <span class="text-gold strong">Siege of Mandalore</span></td>
+                            <td>The Mandalorian <span class="em">(S1–S2)</span></td>
+                            <td>Introduces <span class="text-purple strong">Din Djarin</span> and <span class="text-green">Grogu</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-anim">2021</span></td>
                             <td>The Bad Batch <span class="em">(S1)</span></td>
-                            <td>Immediate aftermath of <span class="text-red">Order 66</span></td>
+                            <td>Immediate aftermath of <span class="text-red strong">Order 66</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-live">2021</span></td>
                             <td>The Book of Boba Fett</td>
-                            <td><span class="text-gold strong">Required</span> for Mando S3</td>
+                            <td><span class="text-gold strong">Required</span> viewing for Mando S3</td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-live">2022</span></td>
@@ -621,12 +618,12 @@
                         <tr>
                             <td><span class="badge badge-live">2022</span></td>
                             <td>Andor <span class="em">(S1)</span></td>
-                            <td>Prequel to <span class="em"><strong>Rogue One</strong></span></td>
+                            <td>Prequel to <span class="em">Rogue One</span> • <span class="text-gold strong">Best Star Wars series</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-anim">2022</span></td>
                             <td>Tales of the Jedi</td>
-                            <td>Backstory for <span class="text-red">Count Dooku</span> and <span class="text-gold">Ahsoka</span></td>
+                            <td>Origins of <span class="text-red">Count Dooku</span> and <span class="text-gold">Ahsoka Tano</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-live">2023</span></td>
@@ -636,7 +633,7 @@
                         <tr>
                             <td><span class="badge badge-game">2023</span></td>
                             <td>Jedi: Survivor</td>
-                            <td>Sequel to <span class="em">Fallen Order</span>, <span class="text-blue">Cal's</span> journey continues</td>
+                            <td>Sequel to <span class="em">Fallen Order</span> • <span class="text-blue">Cal's</span> journey continues</td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-live">2023</span></td>
@@ -645,18 +642,18 @@
                         </tr>
                         <tr>
                             <td><span class="badge badge-anim">2024</span></td>
-                            <td>The Bad Batch <span class="em">(S2 & S3)</span></td>
+                            <td>The Bad Batch <span class="em">(S2–S3)</span></td>
                             <td><span class="text-white strong">Conclusion</span> of the Clone storyline</td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-anim">2024</span></td>
                             <td>Tales of the Empire</td>
-                            <td><span class="text-red">Morgan Elsbeth</span> & <span class="text-purple">Barriss Offee</span> origins</td>
+                            <td>Origins of <span class="text-red">Morgan Elsbeth</span> and <span class="text-purple">Barriss Offee</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-live">2024</span></td>
                             <td>Skeleton Crew</td>
-                            <td><span class="text-cyan">New Republic era</span> adventur</td>
+                            <td><span class="text-cyan">New Republic era</span> adventure</td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-live">2025</span></td>
@@ -671,7 +668,7 @@
                         <tr>
                             <td><span class="badge badge-movie">2026</span></td>
                             <td>The Mandalorian & Grogu</td>
-                            <td><span class="text-purple strong">Din</span> & <span class="text-green">Grogu</span> hunt <span class="text-red">Imperial remnants</span> for the New Republic</td>
+                            <td><span class="text-purple strong">Din</span> and <span class="text-green">Grogu</span> hunt <span class="text-red">Imperial remnants</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -708,9 +705,8 @@
                 Updated quarterly
             </p>
 
-            <!-- Easter Egg -->
             <div class="easter-egg">
-                <button class="easter-egg-btn" id="hyperspaceBtn">⚡ Punch It</button>
+                <button class="easter-egg-btn" id="hyperspaceBtn">✦ Enter Hyperspace</button>
             </div>
         </div>
     </div>
@@ -980,7 +976,7 @@
         hyperspaceBtn.addEventListener('click', () => {
             isHyperspace = !isHyperspace;
             hyperspaceBtn.classList.toggle('active', isHyperspace);
-            hyperspaceBtn.textContent = isHyperspace ? '✦ Exit Hyperspace' : '⚡ Punch It';
+            hyperspaceBtn.textContent = isHyperspace ? '✦ Exit Hyperspace' : '✦ Enter Hyperspace';
         });
 
         const scrollTopBtn = document.getElementById('scrollTop');
